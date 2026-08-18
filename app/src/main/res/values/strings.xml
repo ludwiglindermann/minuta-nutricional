@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minuta Nutricional</string>
+
+    <!-- Login -->
+    <string name="login_titulo">Bienvenida a Minuta Nutricional</string>
+    <string name="login_subtitulo">Organiza tus recetas de la semana en un solo lugar</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_boton">Ingresar</string>
+    <string name="login_sin_cuenta">¿No tienes cuenta? Regístrate aquí</string>
+    <string name="login_olvido_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_error_campos">Ingresa tu correo y contraseña para continuar</string>
+
+    <!-- Registro -->
+    <string name="registro_titulo">Crea tu cuenta</string>
+    <string name="registro_nombre">Nombre completo</string>
+    <string name="registro_email">Correo electrónico</string>
+    <string name="registro_password">Contraseña</string>
+    <string name="registro_confirmar_password">Confirmar contraseña</string>
+    <string name="registro_integrantes_hogar">Número de integrantes del hogar</string>
+    <string name="registro_nivel_culinario">Nivel de experiencia en la cocina</string>
+    <string name="registro_preferencias">Preferencias alimentarias</string>
+    <string name="registro_terminos">Acepto los términos y condiciones</string>
+    <string name="registro_boton">Registrarme</string>
+    <string name="registro_volver_login">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="registro_error_campos">Completa todos los campos obligatorios</string>
+    <string name="registro_error_password">Las contraseñas no coinciden</string>
+    <string name="registro_error_terminos">Debes aceptar los términos y condiciones</string>
+    <string name="registro_exito">¡Cuenta creada con éxito! Ahora puedes iniciar sesión</string>
+
+    <!-- Recuperar contraseña -->
+    <string name="recuperar_titulo">Recuperar contraseña</string>
+    <string name="recuperar_descripcion">Ingresa tu correo y te enviaremos las instrucciones para recuperar tu contraseña</string>
+    <string name="recuperar_boton">Enviar instrucciones</string>
+    <string name="recuperar_volver_login">Volver a inicio de sesión</string>
+    <string name="recuperar_confirmacion">Si el correo existe, te enviamos las instrucciones para recuperar tu contraseña</string>
+
+    <!-- Minuta -->
+    <string name="minuta_titulo">Tu minuta de la semana</string>
+    <string name="minuta_subtitulo">Elige una receta y cocina paso a paso</string>
+    <string name="minuta_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Detalle receta -->
+    <string name="detalle_ingredientes">Ingredientes</string>
+    <string name="detalle_preparacion">Preparación</string>
+    <string name="detalle_info_nutricional">Información nutricional</string>
+    <string name="detalle_volver">Volver a la minuta</string>
+</resources>

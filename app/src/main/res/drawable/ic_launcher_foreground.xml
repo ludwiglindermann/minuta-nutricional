@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Plato -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,26 C71.6731,26 86,40.3269 86,58 C86,75.6731 71.6731,90 54,90 C36.3269,90 22,75.6731 22,58 C22,40.3269 36.3269,26 54,26 Z" />
+    <!-- Borde del plato -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M54,34 C67.2548,34 78,44.7452 78,58 C78,71.2548 67.2548,82 54,82 C40.7452,82 30,71.2548 30,58 C30,44.7452 40.7452,34 54,34 Z" />
+    <!-- Comida al centro -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,44 C61.7320,44 68,50.2680 68,58 C68,65.7320 61.7320,72 54,72 C46.2680,72 40,65.7320 40,58 C40,50.2680 46.2680,44 54,44 Z" />
+</vector>
