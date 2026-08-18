@@ -1,5 +1,7 @@
 package com.duoc.minutanutricional.ui.screens
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,11 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -139,31 +144,31 @@ fun RegistroScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Combo box (menú desplegable) - Material3 ExposedDropdownMenuBox
+            // Combo box (menú desplegable) - Material3 DropdownMenu
             Text(
                 text = stringResource(R.string.registro_integrantes_hogar),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(8.dp))
-            ExposedDropdownMenuBox(
-                expanded = integrantesHogarExpandido,
-                onExpandedChange = { integrantesHogarExpandido = it }
-            ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = integrantesHogarSeleccionado,
                     onValueChange = {},
                     readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = integrantesHogarExpandido) },
+                    trailingIcon = {
+                        Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = null)
+                    },
                     modifier = Modifier
-                        .menuAnchor()
                         .fillMaxWidth()
+                        .clickable { integrantesHogarExpandido = true }
                 )
-                androidx.compose.material3.ExposedDropdownMenu(
+                DropdownMenu(
                     expanded = integrantesHogarExpandido,
-                    onDismissRequest = { integrantesHogarExpandido = false }
+                    onDismissRequest = { integrantesHogarExpandido = false },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     opcionesIntegrantesHogar.forEach { opcion ->
-                        androidx.compose.material3.DropdownMenuItem(
+                        DropdownMenuItem(
                             text = { Text(opcion) },
                             onClick = {
                                 integrantesHogarSeleccionado = opcion
