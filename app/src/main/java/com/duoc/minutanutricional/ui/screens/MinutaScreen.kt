@@ -86,8 +86,11 @@ fun MinutaScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
 
+            // GridCells.Adaptive calcula automáticamente cuántas columnas caben
+            // según el ancho de pantalla, para que la grilla se vea bien tanto en
+            // teléfonos angostos como en tablets (requerimiento de app adaptativa).
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Adaptive(minSize = 150.dp),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
