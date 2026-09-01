@@ -30,14 +30,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.duoc.minutanutricional.R
+import com.duoc.minutanutricional.data.UsuariosData
 import com.duoc.minutanutricional.ui.components.CampoTexto
 import kotlinx.coroutines.launch
 
-/**
- * Vista de Login: primer punto de contacto del usuario con la app.
- * Contiene inputs (correo/contraseña), un botón de ingreso y vínculos
- * hacia Registro y Recuperar contraseña.
- */
+// Vista de Login: primer punto de contacto del usuario con la app.
+// Contiene inputs (correo/contraseña), un boton de ingreso y vinculos
+// hacia Registro y Recuperar contraseña. El acceso se valida contra el
+// arreglo de usuarios de UsuariosData, no solo revisando campos vacios
 @Composable
 fun LoginScreen(
     onLoginExitoso: () -> Unit,
@@ -50,7 +50,8 @@ fun LoginScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    val mensajeError = stringResource(R.string.login_error_campos)
+    val mensajeErrorCampos = stringResource(R.string.login_error_campos)
+    val mensajeErrorCredenciales = stringResource(R.string.login_error_credenciales)
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -90,7 +91,7 @@ fun LoginScreen(
                 },
                 etiqueta = stringResource(R.string.login_email),
                 tipoTeclado = KeyboardType.Email,
-                esError = mostrarError && email.isBlank()
+                esError = mostrarError
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -103,7 +104,12 @@ fun LoginScreen(
                 },
                 etiqueta = stringResource(R.string.login_password),
                 esPassword = true,
-                esError = mostrarError && password.isBlank()
+                esError = mostrarError,
+                mensajeError = if (mostrarError && email.isNotBlank() && password.isNotBlank()) {
+                    mensajeErrorCredenciales
+                } else {
+                    null
+                }
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -119,11 +125,18 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    if (email.isBlank() || password.isBlank()) {
-                        mostrarError = true
-                        scope.launch { snackbarHostState.showSnackbar(mensajeError) }
-                    } else {
-                        onLoginExitoso()
+                    // when {} evalua las condiciones en orden, como una cadena de
+                    // if / else if, hasta encontrar la primera que sea verdadera
+                    when {
+                        email.isBlank() || password.isBlank() -> {
+                            mostrarError = true
+                            scope.launch { snackbarHostState.showSnackbar(mensajeErrorCampos) }
+                        }
+                        !UsuariosData.validar(email, password) -> {
+                            mostrarError = true
+                            scope.launch { snackbarHostState.showSnackbar(mensajeErrorCredenciales) }
+                        }
+                        else -> onLoginExitoso()
                     }
                 },
                 modifier = Modifier

@@ -42,6 +42,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.duoc.minutanutricional.R
+import com.duoc.minutanutricional.data.UsuariosData
+import com.duoc.minutanutricional.model.Usuario
 import com.duoc.minutanutricional.ui.components.CampoTexto
 import kotlinx.coroutines.launch
 
@@ -49,17 +51,18 @@ private val opcionesIntegrantesHogar = listOf("1 - 2 personas", "3 - 4 personas"
 private val opcionesNivelCulinario = listOf("Principiante", "Intermedio", "Avanzado")
 private val opcionesPreferenciasAlimentarias = listOf("Vegetariano", "Vegano", "Sin gluten", "Sin lactosa")
 
-/**
- * Vista de Registro de usuario.
- *
- * Integra los siguientes componentes UI de Material Design / Jetpack Compose,
- * tal como lo pide la actividad:
- * - inputs (nombre, correo, contraseña, confirmar contraseña)
- * - combo box (número de integrantes del hogar)
- * - radio buttons (nivel de experiencia en la cocina)
- * - check list (preferencias alimentarias, selección múltiple)
- * - botón y vínculo de vuelta al login
- */
+// Vista de Registro de usuario.
+//
+// Integra los siguientes componentes UI de Material Design / Jetpack Compose,
+// tal como lo pide la actividad:
+// - inputs (nombre, correo, contraseña, confirmar contraseña)
+// - combo box (numero de integrantes del hogar)
+// - radio buttons (nivel de experiencia en la cocina)
+// - check list (preferencias alimentarias, seleccion multiple)
+// - boton y vinculo de vuelta al login
+//
+// Al registrarse correctamente, el usuario se agrega al arreglo de
+// UsuariosData y queda disponible de inmediato para iniciar sesion
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistroScreen(
@@ -87,6 +90,8 @@ fun RegistroScreen(
     val errorCampos = stringResource(R.string.registro_error_campos)
     val errorPassword = stringResource(R.string.registro_error_password)
     val errorTerminos = stringResource(R.string.registro_error_terminos)
+    val errorCorreoExistente = stringResource(R.string.registro_error_correo_existente)
+    val errorPasswordSinNumero = stringResource(R.string.registro_error_password_sin_numero)
     val mensajeExito = stringResource(R.string.registro_exito)
 
     Scaffold(
@@ -258,6 +263,8 @@ fun RegistroScreen(
 
             Button(
                 onClick = {
+                    // contarDigitos() usa un bucle for por dentro (ver UsuariosData);
+                    // aqui solo se usa el resultado con un operador de comparacion (== 0)
                     when {
                         nombre.isBlank() || email.isBlank() || password.isBlank() || confirmarPassword.isBlank() -> {
                             mostrarError = true
@@ -267,10 +274,20 @@ fun RegistroScreen(
                             mostrarError = true
                             scope.launch { snackbarHostState.showSnackbar(errorPassword) }
                         }
+                        UsuariosData.contarDigitos(password) == 0 -> {
+                            mostrarError = true
+                            scope.launch { snackbarHostState.showSnackbar(errorPasswordSinNumero) }
+                        }
+                        UsuariosData.existeCorreo(email) -> {
+                            scope.launch { snackbarHostState.showSnackbar(errorCorreoExistente) }
+                        }
                         !aceptaTerminos -> {
                             scope.launch { snackbarHostState.showSnackbar(errorTerminos) }
                         }
                         else -> {
+                            UsuariosData.registrar(
+                                Usuario(nombre = nombre, email = email, password = password)
+                            )
                             scope.launch {
                                 snackbarHostState.showSnackbar(mensajeExito)
                             }

@@ -43,11 +43,9 @@ import com.duoc.minutanutricional.R
 import com.duoc.minutanutricional.data.RecetasData
 import com.duoc.minutanutricional.model.Receta
 
-/**
- * Vista de Minuta: muestra en una grilla (LazyVerticalGrid) las 5 recetas
- * semanales almacenadas en [RecetasData.recetas]. Al seleccionar una receta,
- * navega al detalle con su información nutricional.
- */
+// Vista de Minuta: muestra en una grilla (LazyVerticalGrid) las 5 recetas
+// semanales almacenadas en RecetasData.recetas. Al seleccionar una receta,
+// navega al detalle con su informacion nutricional
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MinutaScreen(
@@ -55,6 +53,12 @@ fun MinutaScreen(
     onCerrarSesion: () -> Unit
 ) {
     val recetas: Array<Receta> = RecetasData.recetas
+
+    // sumOf y average son funciones de coleccion: recorren la lista de
+    // calorias de cada receta y calculan el total y el promedio, sin
+    // necesidad de escribir un bucle ni una variable acumuladora a mano
+    val totalCalorias: Int = recetas.sumOf { it.calorias }
+    val promedioCalorias: Int = recetas.map { it.calorias }.average().toInt()
 
     Scaffold(
         topBar = {
@@ -83,8 +87,17 @@ fun MinutaScreen(
                 text = stringResource(R.string.minuta_subtitulo),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
             )
+
+            Text(
+                text = "Total semana: $totalCalorias kcal · Promedio por receta: $promedioCalorias kcal",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             // GridCells.Adaptive calcula automáticamente cuántas columnas caben
             // según el ancho de pantalla, para que la grilla se vea bien tanto en
@@ -171,6 +184,24 @@ private fun TarjetaReceta(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = nivelCaloricoDe(receta.calorias),
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.tertiary
+            )
         }
     }
+}
+
+// when con rangos (in): clasifica la receta segun sus calorias por porcion.
+// A diferencia de una cadena de if / else if, el when deja mas clara la
+// intencion de "elegir una entre varias categorias posibles"
+private fun nivelCaloricoDe(calorias: Int): String = when (calorias) {
+    in 0..349 -> "Ligera"
+    in 350..449 -> "Moderada"
+    else -> "Alta en calorías"
 }

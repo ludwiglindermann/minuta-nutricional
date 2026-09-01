@@ -38,11 +38,9 @@ import com.duoc.minutanutricional.R
 import com.duoc.minutanutricional.data.RecetasData
 import com.duoc.minutanutricional.model.Receta
 
-/**
- * Vista de Detalle de receta. Se accede desde la Minuta al seleccionar una
- * de las 5 recetas. Muestra ingredientes, preparación y una tabla con la
- * información nutricional de la receta.
- */
+// Vista de Detalle de receta. Se accede desde la Minuta al seleccionar una
+// de las 5 recetas. Muestra ingredientes, preparacion y una tabla con la
+// informacion nutricional de la receta
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecetaDetalleScreen(
@@ -180,10 +178,8 @@ fun RecetaDetalleScreen(
     }
 }
 
-/**
- * Tabla simple (filas de etiqueta/valor) con la información nutricional
- * de la receta: calorías, proteínas, carbohidratos y grasas.
- */
+// tabla simple (filas de etiqueta/valor) con la informacion nutricional
+// de la receta: calorias, proteinas, carbohidratos y grasas
 @Composable
 private fun TablaInfoNutricional(receta: Receta) {
     val filas = listOf(

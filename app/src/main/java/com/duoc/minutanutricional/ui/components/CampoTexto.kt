@@ -20,10 +20,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 
-/**
- * Input de texto reutilizable (Material Design 3 - OutlinedTextField) usado en
- * Login, Registro y Recuperar contraseña.
- */
+// input de texto reutilizable (Material Design 3 - OutlinedTextField) usado en
+// Login, Registro y Recuperar contraseña
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CampoTexto(

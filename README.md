@@ -1,27 +1,38 @@
 # Minuta Nutricional
 
-Proyecto de la actividad formativa **"Integrando los componentes básicos de una aplicación móvil"** — Semana 1, Desarrollo de Aplicaciones Móviles (DSY2204), Duoc UC.
+App para la actividad formativa "Integrando los componentes básicos de una aplicación móvil" (Semana 1) y su continuación "Explorando Kotlin para el desarrollo de una aplicación móvil" (Semana 3), DSY2204, Duoc UC.
 
 ## Descripción
 
-Aplicación móvil Android (Kotlin + Jetpack Compose + Material Design 3) que permite a una dueña de casa con baja habilidad informática visualizar una **minuta nutricional semanal**: 5 recetas (una por día, de lunes a viernes) con su información nutricional, ingredientes y preparación.
+App Android (Kotlin + Jetpack Compose + Material 3) para visualizar una minuta nutricional semanal: 5 recetas (una por día, de lunes a viernes) con su información nutricional, ingredientes y preparación.
 
-## Características implementadas
+## Qué tiene
 
-- **Login**: inicio de sesión con validación básica de campos (input, botón, vínculos a Registro y Recuperar contraseña).
-- **Registro de usuario**: formulario con inputs, un combo box (número de integrantes del hogar), radio buttons (nivel de experiencia en la cocina) y una checklist de selección múltiple (preferencias alimentarias).
-- **Recuperar contraseña**: solicitud de recuperación por correo electrónico.
-- **Minuta semanal**: grilla (`LazyVerticalGrid`) con las 5 recetas de la semana, almacenadas en un `Array<Receta>` (`RecetasData.kt`).
-- **Detalle de receta**: ingredientes, preparación paso a paso y una tabla con la información nutricional (calorías, proteínas, carbohidratos, grasas) y una recomendación nutricional.
-- Navegación entre pantallas con **Navigation Compose**.
+- Login validado contra un arreglo de usuarios (correo y contraseña reales, no solo campos no vacíos).
+- Registro con inputs, combo box, radio buttons y checklist. Valida correo duplicado y que la contraseña tenga al menos un número; al registrarse, el usuario queda disponible de inmediato para iniciar sesión.
+- Recuperar contraseña (simulado, no envía correo real).
+- Minuta semanal: grilla con las 5 recetas, más el total y promedio de calorías de la semana (calculado con funciones de colección) y una etiqueta de nivel calórico por receta.
+- Detalle de receta: ingredientes, preparación y tabla con información nutricional.
+
+## Usuarios de prueba
+
+javiera.munoz@gmail.com / Javi2024
+benjamin.rojas@gmail.com / Rojas123
+camila.torres@gmail.com / Camila99
+matias.soto@gmail.com / Soto2024
+valentina.perez@gmail.com / Valen456
 
 ## Estructura del proyecto
 
 ```
 app/src/main/java/com/duoc/minutanutricional/
 ├── MainActivity.kt
-├── model/Receta.kt
-├── data/RecetasData.kt          # array con las 5 recetas semanales
+├── model/
+│   ├── Receta.kt
+│   └── Usuario.kt
+├── data/
+│   ├── RecetasData.kt           # array con las 5 recetas semanales
+│   └── UsuariosData.kt          # array/lista con los usuarios registrados
 ├── navigation/
 │   ├── Rutas.kt
 │   └── NavGraph.kt

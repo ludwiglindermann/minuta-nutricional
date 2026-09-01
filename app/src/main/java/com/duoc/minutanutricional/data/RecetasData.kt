@@ -2,12 +2,9 @@ package com.duoc.minutanutricional.data
 
 import com.duoc.minutanutricional.model.Receta
 
-/**
- * Fuente de datos de la minuta semanal.
- *
- * Tal como lo solicita la actividad, los datos de las 5 recetas semanales
- * se almacenan en un arreglo (Array<Receta>).
- */
+// fuente de datos de la minuta semanal.
+// tal como lo solicita la actividad, los datos de las 5 recetas semanales
+// se almacenan en un arreglo (Array<Receta>)
 object RecetasData {
 
     val recetas: Array<Receta> = arrayOf(
@@ -160,5 +157,8 @@ object RecetasData {
         )
     )
 
+    // el tipo de retorno Receta? (con el signo ?) indica que esta funcion puede
+    // devolver null si ningun elemento cumple la condicion. Es la seguridad nula
+    // de Kotlin: el codigo que llame a esta funcion queda obligado a manejar ese caso
     fun buscarPorId(id: Int): Receta? = recetas.firstOrNull { it.id == id }
 }

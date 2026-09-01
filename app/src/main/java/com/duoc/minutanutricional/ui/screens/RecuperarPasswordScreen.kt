@@ -30,10 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.duoc.minutanutricional.R
 import com.duoc.minutanutricional.ui.components.CampoTexto
 
-/**
- * Vista de Recuperar contraseña: permite a la usuaria solicitar instrucciones
- * de recuperación a partir de su correo electrónico registrado.
- */
+// Vista de Recuperar contraseña: permite a la usuaria solicitar instrucciones
+// de recuperacion a partir de su correo electronico registrado
 @Composable
 fun RecuperarPasswordScreen(
     onVolverALogin: () -> Unit

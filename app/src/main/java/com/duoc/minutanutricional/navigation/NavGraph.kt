@@ -13,10 +13,8 @@ import com.duoc.minutanutricional.ui.screens.RecetaDetalleScreen
 import com.duoc.minutanutricional.ui.screens.RecuperarPasswordScreen
 import com.duoc.minutanutricional.ui.screens.RegistroScreen
 
-/**
- * Grafo de navegación de la app: conecta Login, Registro, Recuperar contraseña,
- * Minuta semanal y Detalle de receta usando Navigation Compose.
- */
+// grafo de navegacion de la app: conecta Login, Registro, Recuperar contraseña,
+// Minuta semanal y Detalle de receta usando Navigation Compose
 @Composable
 fun MinutaNutricionalNavGraph(
     navController: NavHostController = rememberNavController()
