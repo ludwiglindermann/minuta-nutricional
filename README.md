@@ -16,7 +16,13 @@ App Android (Kotlin + Jetpack Compose + Material 3) para visualizar una minuta n
 
 ## Captura del flujo
 
-_(pendiente: agregar captura de Login → Minuta → Detalle)_
+Login → Minuta → Detalle:
+
+![Login](capturas/login.png)
+
+![Minuta](capturas/minuta.png)
+
+![Detalle](capturas/detalle.png)
 
 ## Usuarios de prueba
 
