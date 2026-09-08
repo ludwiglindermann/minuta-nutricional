@@ -182,12 +182,16 @@ fun RecetaDetalleScreen(
 // de la receta: calorias, proteinas, carbohidratos y grasas
 @Composable
 private fun TablaInfoNutricional(receta: Receta) {
-    val filas = listOf(
+    // Map<String, String>: coleccion de pares clave-valor, cada etiqueta
+    // (clave) es unica y esta asociada a un solo valor. linkedMapOf mantiene
+    // el orden en que se agregaron las claves (a diferencia de un mapOf comun)
+    val filas: Map<String, String> = linkedMapOf(
         "Calorías" to "${receta.calorias} kcal",
         "Proteínas" to "${receta.proteinasGramos} g",
         "Carbohidratos" to "${receta.carbohidratosGramos} g",
         "Grasas" to "${receta.grasasGramos} g"
     )
+    val entradas = filas.entries.toList()
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -195,7 +199,7 @@ private fun TablaInfoNutricional(receta: Receta) {
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(modifier = Modifier.padding(vertical = 4.dp)) {
-            filas.forEachIndexed { index, (etiqueta, valor) ->
+            entradas.forEachIndexed { index, (etiqueta, valor) ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -209,7 +213,7 @@ private fun TablaInfoNutricional(receta: Receta) {
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                if (index != filas.lastIndex) {
+                if (index != entradas.lastIndex) {
                     HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
                 }
             }

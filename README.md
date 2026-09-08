@@ -1,6 +1,6 @@
 # Minuta Nutricional
 
-App para la actividad formativa "Integrando los componentes básicos de una aplicación móvil" (Semana 1) y su continuación "Explorando Kotlin para el desarrollo de una aplicación móvil" (Semana 3), DSY2204, Duoc UC.
+App para las actividades formativas de DSY2204: "Integrando los componentes básicos de una aplicación móvil" (Semana 1), "Explorando Kotlin para el desarrollo de una aplicación móvil" (Semana 3) e "Integrando funcionalidades básicas a una aplicación móvil con Kotlin" (Semana 4).
 
 ## Descripción
 
@@ -9,10 +9,14 @@ App Android (Kotlin + Jetpack Compose + Material 3) para visualizar una minuta n
 ## Qué tiene
 
 - Login validado contra un arreglo de usuarios (correo y contraseña reales, no solo campos no vacíos).
-- Registro con inputs, combo box, radio buttons y checklist. Valida correo duplicado y que la contraseña tenga al menos un número; al registrarse, el usuario queda disponible de inmediato para iniciar sesión.
+- Registro con inputs, combo box, radio buttons y checklist. Valida correo duplicado y que la contraseña tenga al menos un número (con una función de extensión); al registrarse, el usuario queda disponible de inmediato para iniciar sesión.
 - Recuperar contraseña (simulado, no envía correo real).
-- Minuta semanal: grilla con las 5 recetas, más el total y promedio de calorías de la semana (calculado con funciones de colección) y una etiqueta de nivel calórico por receta.
-- Detalle de receta: ingredientes, preparación y tabla con información nutricional.
+- Minuta semanal: grilla con las 5 recetas, más el total y promedio de calorías de la semana (con funciones de colección) y una etiqueta de nivel calórico por receta (enum class).
+- Detalle de receta: ingredientes, preparación y una tabla (armada con un Map) con información nutricional.
+
+## Captura del flujo
+
+_(pendiente: agregar captura de Login → Minuta → Detalle)_
 
 ## Usuarios de prueba
 
@@ -28,11 +32,16 @@ valentina.perez@gmail.com / Valen456
 app/src/main/java/com/duoc/minutanutricional/
 ├── MainActivity.kt
 ├── model/
-│   ├── Receta.kt
-│   └── Usuario.kt
+│   ├── Receta.kt                # implementa la interfaz Recomendable
+│   ├── Recomendable.kt          # interfaz
+│   ├── Usuario.kt
+│   ├── NivelCulinario.kt        # enum class
+│   └── NivelCalorico.kt         # enum class con companion object
 ├── data/
 │   ├── RecetasData.kt           # array con las 5 recetas semanales
 │   └── UsuariosData.kt          # array/lista con los usuarios registrados
+├── util/
+│   └── Validaciones.kt          # funcion de extension sobre String
 ├── navigation/
 │   ├── Rutas.kt
 │   └── NavGraph.kt

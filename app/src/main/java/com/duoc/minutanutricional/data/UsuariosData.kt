@@ -8,6 +8,8 @@ import com.duoc.minutanutricional.model.Usuario
 // poder agregar nuevos usuarios desde la pantalla de Registro
 object UsuariosData {
 
+    // private: solo se puede usar dentro de este archivo/objeto. Es el
+    // modificador de visibilidad mas restrictivo de Kotlin
     private val usuariosBase: Array<Usuario> = arrayOf(
         Usuario(nombre = "Javiera Muñoz", email = "javiera.munoz@gmail.com", password = "Javi2024"),
         Usuario(nombre = "Benjamín Rojas", email = "benjamin.rojas@gmail.com", password = "Rojas123"),
@@ -30,18 +32,5 @@ object UsuariosData {
 
     fun registrar(usuario: Usuario) {
         usuarios.add(usuario)
-    }
-
-    // cuenta cuantos digitos numericos tiene un texto, usando un bucle for
-    // clasico (recorre cada caracter) en vez de una funcion de coleccion,
-    // para mostrar la sintaxis basica del bucle for de Kotlin
-    fun contarDigitos(texto: String): Int {
-        var cantidad = 0
-        for (caracter in texto) {
-            if (caracter.isDigit()) {
-                cantidad++
-            }
-        }
-        return cantidad
     }
 }

@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.duoc.minutanutricional.R
 import com.duoc.minutanutricional.data.RecetasData
+import com.duoc.minutanutricional.model.NivelCalorico
 import com.duoc.minutanutricional.model.Receta
 
 // Vista de Minuta: muestra en una grilla (LazyVerticalGrid) las 5 recetas
@@ -188,20 +189,11 @@ private fun TarjetaReceta(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = nivelCaloricoDe(receta.calorias),
+                text = NivelCalorico.desde(receta.calorias).etiqueta,
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.tertiary
             )
         }
     }
-}
-
-// when con rangos (in): clasifica la receta segun sus calorias por porcion.
-// A diferencia de una cadena de if / else if, el when deja mas clara la
-// intencion de "elegir una entre varias categorias posibles"
-private fun nivelCaloricoDe(calorias: Int): String = when (calorias) {
-    in 0..349 -> "Ligera"
-    in 350..449 -> "Moderada"
-    else -> "Alta en calorías"
 }

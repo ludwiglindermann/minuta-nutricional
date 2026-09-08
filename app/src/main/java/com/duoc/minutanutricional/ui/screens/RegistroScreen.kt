@@ -43,12 +43,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.duoc.minutanutricional.R
 import com.duoc.minutanutricional.data.UsuariosData
+import com.duoc.minutanutricional.model.NivelCulinario
 import com.duoc.minutanutricional.model.Usuario
 import com.duoc.minutanutricional.ui.components.CampoTexto
+import com.duoc.minutanutricional.util.tieneAlMenosUnDigito
 import kotlinx.coroutines.launch
 
 private val opcionesIntegrantesHogar = listOf("1 - 2 personas", "3 - 4 personas", "5 o más personas")
-private val opcionesNivelCulinario = listOf("Principiante", "Intermedio", "Avanzado")
 private val opcionesPreferenciasAlimentarias = listOf("Vegetariano", "Vegano", "Sin gluten", "Sin lactosa")
 
 // Vista de Registro de usuario.
@@ -77,8 +78,12 @@ fun RegistroScreen(
     var integrantesHogarExpandido by remember { mutableStateOf(false) }
     var integrantesHogarSeleccionado by remember { mutableStateOf(opcionesIntegrantesHogar.first()) }
 
-    var nivelCulinarioSeleccionado by remember { mutableStateOf(opcionesNivelCulinario.first()) }
+    // NivelCulinario.entries recorre todas las constantes del enum, en el
+    // orden en que fueron declaradas
+    var nivelCulinarioSeleccionado by remember { mutableStateOf(NivelCulinario.entries.first()) }
 
+    // Set<String>: coleccion que no permite valores repetidos, ideal para una
+    // checklist de seleccion multiple donde cada opcion cuenta una sola vez
     val preferenciasSeleccionadas = remember { mutableStateOf(setOf<String>()) }
 
     var aceptaTerminos by remember { mutableStateOf(false) }
@@ -193,7 +198,7 @@ fun RegistroScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Column {
-                opcionesNivelCulinario.forEach { opcion ->
+                NivelCulinario.entries.forEach { opcion ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -209,7 +214,7 @@ fun RegistroScreen(
                             selected = (opcion == nivelCulinarioSeleccionado),
                             onClick = { nivelCulinarioSeleccionado = opcion }
                         )
-                        Text(text = opcion, modifier = Modifier.padding(start = 8.dp))
+                        Text(text = opcion.etiqueta, modifier = Modifier.padding(start = 8.dp))
                     }
                 }
             }
@@ -263,8 +268,8 @@ fun RegistroScreen(
 
             Button(
                 onClick = {
-                    // contarDigitos() usa un bucle for por dentro (ver UsuariosData);
-                    // aqui solo se usa el resultado con un operador de comparacion (== 0)
+                    // tieneAlMenosUnDigito() es la funcion de extension de
+                    // util/Validaciones.kt, se usa igual que un metodo de String
                     when {
                         nombre.isBlank() || email.isBlank() || password.isBlank() || confirmarPassword.isBlank() -> {
                             mostrarError = true
@@ -274,7 +279,7 @@ fun RegistroScreen(
                             mostrarError = true
                             scope.launch { snackbarHostState.showSnackbar(errorPassword) }
                         }
-                        UsuariosData.contarDigitos(password) == 0 -> {
+                        !password.tieneAlMenosUnDigito() -> {
                             mostrarError = true
                             scope.launch { snackbarHostState.showSnackbar(errorPasswordSinNumero) }
                         }
